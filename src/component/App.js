@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom"
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -6,9 +7,13 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utilis/api";
+
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -19,6 +24,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isPreloading, setIsPreloading] = useState(false);
+
 
   useEffect(() => {
     Promise.all([api.getUserInfoApi(), api.getInitialCards()])
@@ -119,7 +125,31 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <Main
+        <Routes>
+          <Route
+            path="/"
+            element={<ProtectedRoute
+              element={Main}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={hendleEditProfileClick}
+              onAddPlace={hendleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+            />}
+          />
+          <Route
+            path="/sign-in"
+            element={<Login />} />
+          <Route
+            path="/sign-up"
+            element={<Register />} />
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />} />
+        </Routes>
+        {/* <Main
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={hendleEditProfileClick}
           onAddPlace={hendleAddPlaceClick}
@@ -127,7 +157,7 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           cards={cards}
-        />
+        /> */}
         <Footer />
 
         <EditAvatarPopup

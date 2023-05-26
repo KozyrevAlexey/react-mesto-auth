@@ -12,8 +12,16 @@ function Login({ onLogin }) {
     onLogin(email, password);
   }
 
+  function handleChange(evt) {
+    const {name, value} =evt.target;
+    setFormValue({
+      ...formValue,
+      [name]: value
+    })
+  }
+
   return (
-    <div className="auth">
+    <div className="auth" >
       <h2 className="auth__title">Вход</h2>
       <form name="register" className="auth__form" onSubmit={handleSubmit}>
         <input
@@ -21,12 +29,16 @@ function Login({ onLogin }) {
           name="email"
           className="auth__input"
           placeholder="Email"
+          value={formValue.email}
+          onChange={handleChange}
           required />
         <input
           type="password"
           name="password"
           className="auth__input"
           placeholder="Пароль"
+          value={formValue.password}
+          onChange={handleChange}
           required />
         <button
           className="auth__submit-button"

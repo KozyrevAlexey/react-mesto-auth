@@ -139,7 +139,7 @@ function App() {
     setIsInfoTooltipPopupOpen(true);
   }
 
-  function onRegister() {
+  function  onRegister() {
     setTooltipTitle("Что-то пошло не так!");
     setTooltipIcon("error");
     setIsInfoTooltipPopupOpen(true);

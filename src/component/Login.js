@@ -2,18 +2,18 @@ import React, { useState } from "react";
 
 function Login({ onLogin }) {
   const [formValue, setFormValue] = useState({
+    password: "",
     email: "",
-    password: ""
   })
 
   function handleSubmit(evt) {
     evt.preventDefault();
     const { email, password } = formValue;
-    onLogin(email, password);
+    onLogin(password, email);
   }
 
   function handleChange(evt) {
-    const {name, value} =evt.target;
+    const {name, value} = evt.target;
     setFormValue({
       ...formValue,
       [name]: value
@@ -23,13 +23,13 @@ function Login({ onLogin }) {
   return (
     <div className="auth" >
       <h2 className="auth__title">Вход</h2>
-      <form name="register" className="auth__form" onSubmit={handleSubmit}>
+      <form name="login" className="auth__form" onSubmit={handleSubmit} noValidate>
         <input
           type="email"
           name="email"
           className="auth__input"
           placeholder="Email"
-          value={formValue.email}
+          value={formValue.email || ""}
           onChange={handleChange}
           required />
         <input
@@ -37,7 +37,7 @@ function Login({ onLogin }) {
           name="password"
           className="auth__input"
           placeholder="Пароль"
-          value={formValue.password}
+          value={formValue.password || ""}
           onChange={handleChange}
           required />
         <button

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom"
 import Header from "./Header";
-import Main from "./Main";
+import Main from "./Main.js";
 import Footer from "./Footer";
-import ImagePopup from "./ImagePopup";
+import ImagePopup from "./ImagePopup.js";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Login from "./Login";
-import Register from "./Register";
+import Register from "./Register.js";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 
@@ -63,6 +63,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleCardClick(card) {
@@ -132,15 +133,15 @@ function App() {
     }
   }
 
-  function onRegister() {
+  function onError() {
     setTooltipTitle("Вы успешно зарегистрировались!");
     setTooltipIcon("success");
     setIsInfoTooltipPopupOpen(true);
   }
 
-  function onError() {
-    setTooltipTitle("Вы успешно зарегистрировались!");
-    setTooltipIcon("success");
+  function onRegister() {
+    setTooltipTitle("Что-то пошло не так!");
+    setTooltipIcon("error");
     setIsInfoTooltipPopupOpen(true);
   }
 
@@ -151,7 +152,7 @@ function App() {
         .then((res) => {
           setLoggedIn(true);
           setEmail(res.data.email);
-          navigate('/');
+          navigate("/");
         })
         .catch(err => console.log(err));
     }
@@ -275,3 +276,4 @@ function App() {
 }
 
 export default App;
+

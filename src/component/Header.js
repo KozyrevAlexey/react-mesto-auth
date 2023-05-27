@@ -5,8 +5,8 @@ import logo from "../images/logo.svg"
 export default function Header({ email, signOut, loggedIn }) {
   const location = useLocation();
 
-  const LinkName = (location.pathname === "/sign-in") ? "Регистрация" : "Войти";
   const path = (location.pathname === "/sign-in") ? "/sign-up" : "/sign-in";
+  const LinkName = (location.pathname === "/sign-in") ? "Регистрация" : "Войти";
 
   return (
     <header className="header">

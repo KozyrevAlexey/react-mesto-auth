@@ -10,6 +10,7 @@
   border: 0;
   border-bottom: 2px solid #ccc;
   margin-bottom: 26px;
+  outline: none;
 }
 
 .auth__form:last-of-type {

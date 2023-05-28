@@ -16,7 +16,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utilis/api";
 import * as auth from "../utilis/auth"
 
-
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -28,12 +27,12 @@ function App() {
   const [isPreloading, setIsPreloading] = useState(false);
   const [email, setEmail] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
+
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false)
   const [tooltipTitle, setTooltipTitle] = useState('')
   const [tooltipIcon, setTooltipIcon] = useState('')
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (loggedIn) {
@@ -133,13 +132,13 @@ function App() {
     }
   }
 
-  function onError() {
+  function onRegister() {
     setTooltipTitle("Вы успешно зарегистрировались!");
     setTooltipIcon("success");
     setIsInfoTooltipPopupOpen(true);
   }
 
-  function  onRegister() {
+  function onError() {
     setTooltipTitle("Что-то пошло не так!");
     setTooltipIcon("error");
     setIsInfoTooltipPopupOpen(true);
@@ -169,7 +168,11 @@ function App() {
         setLoggedIn(true);
         navigate("/")
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        onError();
+
+        console.log(err);
+      });
   }
 
   function handleRegister(password, email) {
@@ -260,14 +263,14 @@ function App() {
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
           onOverlayClose={handleOverlayClose}
-          />
+        />
 
         <InfoTooltip
-        title={tooltipTitle}
-        tooltipIcon={tooltipIcon}
-        isOpen={isInfoTooltipPopupOpen}
-        onClose={closeAllPopups}
-        onOverlayClose={handleOverlayClose}
+          title={tooltipTitle}
+          tooltipIcon={tooltipIcon}
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          onOverlayClose={handleOverlayClose}
         />
 
       </div>
